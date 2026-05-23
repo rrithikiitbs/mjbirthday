@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Happy 19th Birthday 💖</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Cinzel:wght@400;700&display=swap" rel="stylesheet"/>
+</head>
+<body>
+
+  <!-- PARTICLE CANVAS -->
+  <canvas id="particleCanvas"></canvas>
+
+  <!-- OPENING COUNTER SCREEN -->
+  <div id="openingScreen" class="screen active">
+    <div class="stars-bg"></div>
+    <div id="counterWrapper">
+      <div class="counter-label">She's turning</div>
+      <div id="mainCounter">0</div>
+      <div class="counter-sublabel">years of pure magic ✨</div>
+    </div>
+    <div id="floatingParticles"></div>
+  </div>
+
+  <!-- CAKE SCREEN -->
+  <div id="cakeScreen" class="screen">
+
+    <!-- Wish text sits above cake, pushed higher -->
+    <div id="wishText">Make a wish ✨</div>
+
+    <div id="cakeWrapper">
+      <!-- Orbiting sparkle rings (JS injects .orb-ring children) -->
+      <div id="orbRings"></div>
+
+      <div id="cake">
+
+        <!-- TIER 4 — tiny top -->
+        <div class="cake-tier tier-4">
+          <div class="candles-row" id="candlesTier4">
+            <div class="candle c-pink"><div class="flame"></div><div class="drip drip-a"></div></div>
+            <div class="candle c-gold"><div class="flame"></div><div class="drip drip-b"></div></div>
+          </div>
+          <div class="cake-top t4-top"></div>
+          <div class="cake-side t4-side">
+            <div class="frosting-dots"></div>
+          </div>
+        </div>
+
+        <!-- TIER 3 -->
+        <div class="cake-tier tier-3">
+          <div class="candles-row" id="candlesTier3">
+            <div class="candle c-violet"><div class="flame"></div><div class="drip drip-c"></div></div>
+            <div class="candle c-pink"><div class="flame"></div><div class="drip drip-a"></div></div>
+            <div class="candle c-gold"><div class="flame"></div><div class="drip drip-b"></div></div>
+          </div>
+          <div class="cake-top t3-top"></div>
+          <div class="cake-side t3-side">
+            <div class="cake-deco-text">✦ 19 ✦</div>
+            <div class="neon-stripe"></div>
+          </div>
+        </div>
+
+        <!-- TIER 2 -->
+        <div class="cake-tier tier-2">
+          <div class="candles-row" id="candlesTier2">
+            <div class="candle c-gold"><div class="flame"></div><div class="drip drip-b"></div></div>
+            <div class="candle c-pink"><div class="flame"></div><div class="drip drip-a"></div></div>
+            <div class="candle c-violet"><div class="flame"></div><div class="drip drip-c"></div></div>
+            <div class="candle c-pink"><div class="flame"></div><div class="drip drip-a"></div></div>
+          </div>
+          <div class="cake-top t2-top"></div>
+          <div class="cake-side t2-side">
+            <div class="cake-deco-hearts">❤ ✦ ❤ ✦ ❤</div>
+            <div class="laser-line"></div>
+          </div>
+        </div>
+
+        <!-- TIER 1 — base -->
+        <div class="cake-tier tier-1">
+          <div class="candles-row" id="candlesTier1">
+            <div class="candle c-pink"><div class="flame"></div><div class="drip drip-a"></div></div>
+            <div class="candle c-gold"><div class="flame"></div><div class="drip drip-b"></div></div>
+            <div class="candle c-violet"><div class="flame"></div><div class="drip drip-c"></div></div>
+            <div class="candle c-pink"><div class="flame"></div><div class="drip drip-a"></div></div>
+            <div class="candle c-gold"><div class="flame"></div><div class="drip drip-b"></div></div>
+          </div>
+          <div class="cake-top t1-top"></div>
+          <div class="cake-side t1-side">
+            <div class="cake-deco-text base-text">H A P P Y &nbsp; B I R T H D A Y</div>
+            <div class="cake-gems">
+              <span>💎</span><span>⭐</span><span>💎</span><span>⭐</span><span>💎</span>
+            </div>
+            <div class="laser-line laser-gold"></div>
+          </div>
+        </div>
+
+        <!-- PLATE -->
+        <div id="cakePlate"></div>
+      </div><!-- /#cake -->
+
+      <!-- Burst particles from cake (JS spawned) -->
+      <div id="cakeBurstLayer"></div>
+    </div><!-- /#cakeWrapper -->
+
+    <!-- Smoke -->
+    <div class="smoke-container" id="smokeContainer">
+      <div class="smoke"></div><div class="smoke"></div><div class="smoke"></div>
+      <div class="smoke"></div><div class="smoke"></div><div class="smoke"></div>
+    </div>
+
+    <!-- Countdown overlay -->
+    <div id="countdownOverlay">
+      <div id="countdownNumber"></div>
+    </div>
+
+    <!-- Sparkle field -->
+    <div id="sparkleField"></div>
+  </div><!-- /#cakeScreen -->
+
+  <!-- BIRTHDAY CARD POPUP -->
+  <div id="cardOverlay" class="hidden">
+    <div id="birthdayCard">
+      <div class="card-glow-ring"></div>
+      <div class="card-header">
+        <div class="card-emoji">🎂</div>
+        <h1 class="card-title">Happy 19th Birthday</h1>
+        <div class="heart-row">❤️ 💖 ❤️</div>
+      </div>
+      <div class="card-divider"></div>
+      <div class="card-body">
+        <h3>Dear Paps aka Fight club Brad pitt😎,</h3>
+        <p>To the most amazing cousin (JK papa 😝) ever,</p>
+        <p>Thank you for always being supportive, caring, and inspiring.
+        Watching your dedication, discipline, and fitness journey is genuinely motivating(🤭🤭🤭😁).
+        You keep getting stronger, smarter, and more unstoppable every year 💪</p>
+        <p>May this year bring you happiness, success, peace, confidence, gains, and unforgettable memories.
+        Keep smiling, keep shining, and keep becoming the incredible person you are.</p>
+        <p class="sign-off">You are the best Mridh...huhuh...papa😊😇✨</p>
+      </div>
+      <div class="fitness-badge">19 years stronger 💪</div>
+      <div class="heartbeat-line">
+        <svg viewBox="0 0 300 60" preserveAspectRatio="none">
+          <polyline points="0,30 40,30 55,5 70,55 85,30 120,30 135,15 150,45 165,30 210,30 225,10 240,50 255,30 300,30"
+            fill="none" stroke="url(#hbGrad)" stroke-width="2.5"/>
+          <defs>
+            <linearGradient id="hbGrad" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0%" stop-color="#ff2d78"/>
+              <stop offset="100%" stop-color="#ffd700"/>
+            </linearGradient>
+          </defs>
+        </svg>
+      </div>
+      <button id="closeCard">Continue ✨</button>
+    </div>
+  </div>
+
+  <!-- MEMORY GALLERY -->
+  <div id="gallerySection" class="hidden">
+    <h2 class="gallery-title">💫 Memories</h2>
+    <div class="carousel-wrapper">
+      <button class="carousel-btn" id="prevBtn">‹</button>
+      <div class="carousel-track-outer">
+        <div class="carousel-track" id="carouselTrack">
+          <div class="carousel-slide">
+            <img src="photos/photo1.jpeg" alt="Memory 1"
+              onerror="this.src='https://placehold.co/480x360/2d0060/ffd700?text=📸+Memory+1'"/>
+            <div class="slide-caption">Always shining ✨</div>
+          </div>
+          <div class="carousel-slide">
+            <img src="photos/photo2.jpeg" alt="Memory 2"
+              onerror="this.src='https://placehold.co/480x360/1a0040/ff2d78?text=💪+Memory+2'"/>
+            <div class="slide-caption">Getting stronger 💪</div>
+          </div>
+          <div class="carousel-slide">
+            <img src="photos/photo3.jpeg" alt="Memory 3"
+              onerror="this.src='https://placehold.co/480x360/0d0030/ff69b4?text=🌟+Memory+3'"/>
+            <div class="slide-caption">Unstoppable 🌟</div>
+          </div>
+        </div>
+      </div>
+      <button class="carousel-btn" id="nextBtn">›</button>
+    </div>
+    <div class="carousel-dots" id="carouselDots"></div>
+
+    <div class="surprise-section">
+      <button id="surpriseBtn">One More Surprise 🎁</button>
+    </div>
+
+    <div id="heartsLayer"></div>
+  </div>
+
+  <!-- VIDEO POPUP — surprise.mp4 -->
+  <div id="videoOverlay" class="hidden">
+    <div id="videoModal">
+      <div class="video-glow-ring"></div>
+      <div class="video-header">
+        <span class="video-title-text">🎁 A Special Surprise For You 💖</span>
+      </div>
+      <div class="video-container">
+        <video id="surpriseVideo" controls playsinline>
+          <source src="videos/surprise.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+      </div>
+      <button id="closeVideo">Close ✕</button>
+    </div>
+  </div>
+
+  <!-- GLOBAL FLOATING DUMBBELLS -->
+  <div id="dumbbellLayer"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>
